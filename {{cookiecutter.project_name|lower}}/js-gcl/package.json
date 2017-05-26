@@ -1,0 +1,20 @@
+{
+  "name": "js-gcl",
+  "version": "0.0.0",
+  "description": "ECMA Script",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha 'test/**/*.js'"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "private": true,
+  "devDependencies": {
+    "jsdom": "^10.1.0",
+    "jsdom-global": "^3.0.2",
+    "mocha": "^3.4.1"
+  }
+}
+

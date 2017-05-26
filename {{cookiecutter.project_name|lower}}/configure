@@ -1,0 +1,27 @@
+#!/bin/bash
+
+if ! type java; then
+	echo "Java is not installed"
+	exit 1
+fi
+
+if ! type npm; then
+	echo "npm is not installed"
+	exit 1
+fi
+
+NPM_PACKAGES="less less-plugin-autoprefix less-plugin-clean-css eslint jsdoc html-minifier"
+if [[ $(npm -g -p ls ${NPM_PACKAGES} | wc -l) -ne $(echo $NPM_PACKAGES | wc -w) ]]; then
+	echo "npm pakcages is not installed"
+	echo "npm install -g ${NPM_PACKAGES}"
+	exit 1
+fi
+
+if ! type php; then
+	echo "PHP is not installed"
+	exit 1
+fi
+
+cd js-gcl
+npm i
+cd ..
