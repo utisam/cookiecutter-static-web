@@ -1,3 +1,4 @@
+{%- raw -%}
 TARGET_DIR = dist
 SOURCE_DIR = src
 SOURCES = $(shell find $(SOURCE_DIR) -type f -name '*.js')
@@ -46,3 +47,4 @@ sources: $(SOURCES) $(LIB_SOURCES)
 
 clean:
 	-rm -rf $(TARGET_DIR)
+{%- endraw -%}
