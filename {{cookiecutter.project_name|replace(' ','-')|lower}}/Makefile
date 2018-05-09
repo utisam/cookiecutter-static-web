@@ -5,7 +5,7 @@ TARGET_DIR = dist
 
 HTML_MODULES = php
 CSS_MODULES = less
-JS_MODULES = js-gcl
+JS_MODULES = js-gcl js-babel
 MODULES = $(HTML_MODULES) $(CSS_MODULES) $(JS_MODULES) jsdoc
 
 .DELETE_ON_ERROR:
