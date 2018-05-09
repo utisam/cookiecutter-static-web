@@ -12,21 +12,22 @@ TARGETS = $(patsubst $(SOURCE_DIR)/%,$(TARGET_DIR)/%,$(SOURCES))
 # Delete the default suffixes for old-fashioned suffix rules
 .SUFFIXES:
 
-.PHONY: all test sources eslint clean
+.PHONY: all test sources lint clean
 
-all: eslint $(TARGETS) test sources
+all: lint $(TARGETS) test sources
 
-eslint: $(SOURCES) $(LIB_SOURCES)
-	eslint $(SOURCE_DIR) $(LIB_DIR)
+lint: $(SOURCES) $(LIB_SOURCES)
+	eslint -- $(SOURCE_DIR) $(LIB_DIR)
 
-CLOSURE_COMPILER = closure-compiler.jar
+CLOSURE_COMPILER = closure-compiler/compiler.jar
 CLOSURE_COMPILATION_LEVEL = ADVANCED_OPTIMIZATIONS
 #CLOSURE_COMPILATION_LEVEL = SIMPLE_OPTIMIZATIONS
 #CLOSURE_COMPILATION_LEVEL = WHITESPACE_ONLY
 
 $(TARGET_DIR)/%.js: $(SOURCE_DIR)/%.js $(LIB_SOURCES)
 	-mkdir -p $(dir $@)
-	java -jar $(CLOSURE_COMPILER) \
+	$(eval SOURCE_MAP_RELATIVE := $(shell echo "$<" | sed -e 's:\([^/]*\):..:g' -e 's:../..$$::g'))
+	java -client -XX:+TieredCompilation -XX:TieredStopAtLevel=1 -Xverify:none -Xms1024m -Xmx1024m -jar $(CLOSURE_COMPILER) \
 		--language_in=ECMASCRIPT6_STRICT \
 		--language_out=ECMASCRIPT5_STRICT \
 		--rewrite_polyfills=false \
@@ -35,6 +36,8 @@ $(TARGET_DIR)/%.js: $(SOURCE_DIR)/%.js $(LIB_SOURCES)
 		--jscomp_off=checkVars \
 		--module_resolution=BROWSER \
 		--create_source_map "$@.map" \
+		--source_map_location_mapping "src|$(SOURCE_MAP_RELATIVE)src" \
+		--source_map_location_mapping "lib|$(SOURCE_MAP_RELATIVE)lib" \
 		--js_output_file $@ \
 		$^
 	echo "//# sourceMappingURL=$(notdir $@).map" >> $@
