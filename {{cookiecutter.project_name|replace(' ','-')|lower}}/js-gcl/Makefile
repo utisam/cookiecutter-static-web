@@ -4,7 +4,7 @@ TARGET_DIR = dist
 SOURCE_DIR = src
 SOURCES = $(shell find $(SOURCE_DIR) -type f -name '*.js')
 LIB_DIR = lib
-LIB_SOURCES = $(shell find lib -type f -name '*.js')
+LIB_SOURCES = $(shell find $(LIB_DIR) -type f -name '*.js')
 TARGETS = $(patsubst $(SOURCE_DIR)/%,$(TARGET_DIR)/%,$(SOURCES))
 
 .DELETE_ON_ERROR:
