@@ -1,3 +1,5 @@
+SHELL=/bin/bash -o pipefail
+
 TARGET_DIR = dist
 SOURCE_DIR = src
 SOURCES = $(shell find $(SOURCE_DIR) -type f -name '*.php')

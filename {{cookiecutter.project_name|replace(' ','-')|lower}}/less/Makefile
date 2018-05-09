@@ -1,3 +1,5 @@
+SHELL=/bin/bash -o pipefail
+
 SED=sed
 
 TARGET_DIR = dist

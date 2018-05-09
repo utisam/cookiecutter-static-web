@@ -1,6 +1,7 @@
-TARGET_DIR = dist
+SHELL=/bin/bash -o pipefail
 
 LANGUAGE_CODE = en
+TARGET_DIR = dist
 
 HTML_MODULES = php
 CSS_MODULES = less
