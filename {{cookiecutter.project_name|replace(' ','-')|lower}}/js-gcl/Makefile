@@ -29,7 +29,7 @@ $(TARGET_DIR)/%.js: $(SOURCE_DIR)/%.js $(LIB_SOURCES)
 		--language_in=ECMASCRIPT6_STRICT \
 		--language_out=ECMASCRIPT5_STRICT \
 		--rewrite_polyfills=false \
-		--output_wrapper='(()=>{%output%})();' \
+		{% raw %}--output_wrapper='(()=>{%output%})();'{% endraw %} \
 		--compilation_level=$(CLOSURE_COMPILATION_LEVEL) \
 		--jscomp_off=checkVars \
 		--module_resolution=BROWSER \
